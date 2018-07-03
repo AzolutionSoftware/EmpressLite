@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/list_leave_history_row_root"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/list_leave_history_row_employeeName"
+            android:text=" Name : Kamrul Hasan"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/list_leave_history_row_type"
+            android:text="Type : Medical"
+            android:textColor="@color/black"
+            android:layout_marginTop="3dp"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/list_leave_history_row_leaveDate"
+            android:text="Date : 01/07/2018 to 03/07/2018 (3 days)"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/list_leave_history_row_leave_applyDate"
+            android:text="Applied Date : 01/07/2018"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/list_leave_history_row_approve_date"
+            android:text="Approved Date : 01/07/2018"
+            android:textSize="16sp"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/list_leave_history_row_approve_status"
+            android:text="Status : Pending"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

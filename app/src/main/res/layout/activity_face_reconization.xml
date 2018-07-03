@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.FaceRecognitionActivity"
+    android:background="#000">
+
+    <RelativeLayout
+        android:background="@color/colorPrimary"
+        android:padding="16dp"
+        android:id="@+id/face_recognition_activity_userInfo"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <TextView
+            android:id="@+id/face_recognition_activity_userName"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/face_recognition_activity_userId"
+            android:layout_below="@+id/face_recognition_activity_userName"
+            android:layout_marginTop="5dp"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/face_recognition_activity_date"
+            android:layout_below="@+id/face_recognition_activity_userId"
+            android:textStyle="italic"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/face_recognition_activity_userProfileImage"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/default_image"
+            android:layout_centerVertical="true"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+
+
+    </RelativeLayout>
+
+    <com.google.android.cameraview.CameraView
+        android:id="@+id/camera"
+        android:layout_below="@+id/face_recognition_activity_userInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:layout_above="@+id/take_picture"
+        android:background="@android:color/black"/>
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_below="@+id/face_recognition_activity_userInfo"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/take_picture"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/face_verify_text" />
+
+</RelativeLayout>
