@@ -5,6 +5,7 @@ import com.azolution.empresshr.model.EmployeeProfileInformation;
 import com.azolution.empresshr.model.LeaveApplication;
 import com.azolution.empresshr.model.LeaveApplicationHistory;
 import com.azolution.empresshr.model.LeaveType;
+import com.azolution.empresshr.model.RoutePlan;
 import com.azolution.empresshr.model.TokenResponse;
 import com.azolution.empresshr.model.ApiResponseMessage;
 import com.azolution.empresshr.model.EmployeeAttendance;
@@ -12,6 +13,7 @@ import com.azolution.empresshr.model.EmployeeInformation;
 import com.azolution.empresshr.model.EmployeeLocationTrack;
 import com.azolution.empresshr.model.RegisterUser;
 
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -67,5 +69,8 @@ public interface EmployeeApi {
 
     @GET("/api/Attendance/GetAttendanceSummary")
     Call<List<AttendanceHistory>> getAttendanceHistory(@Query("empId") String empId, @Query("year") int year, @Query("month") int month);
+
+    @GET("/api/Attendance/GetRoutePlanByEmployee")
+    Call<List<RoutePlan>> getRoutePlan(@Query("empId") String empId, @Query("date") String date);
 
 }

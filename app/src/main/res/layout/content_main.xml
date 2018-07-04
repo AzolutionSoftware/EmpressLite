@@ -168,6 +168,7 @@
            </LinearLayout>
 
            <LinearLayout
+               android:onClick="routePlan"
                android:layout_width="0dp"
                android:layout_weight="1"
                android:layout_height="170dp"
@@ -187,7 +188,7 @@
                <TextView
                    android:layout_marginTop="10dp"
                    android:textColor="@color/black"
-                   android:text="@string/employee_attendance_text"
+                   android:text="Route Plam"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content" />
 

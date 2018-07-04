@@ -130,6 +130,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         checkPermissions();
 
+
         sharedPreferences = getSharedPreferences(Util.EMPLOYEE_LOGGEDIN_PREF,0);
         authToken = sharedPreferences.getString(Util.AUTH_TOKEN,"");
 
@@ -199,7 +200,6 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
                 if (location != null){
                     String latitude = String.valueOf(location.getLatitude());
                     String longitude = String.valueOf(location.getLongitude());
-                    Log.v("CONNECTED",latitude);
                     sendAttendanceData(latitude,longitude);
                 }else {
                     Toast.makeText(getApplicationContext(),"can not found your location",Toast.LENGTH_SHORT).show();
@@ -278,7 +278,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
                     FileUtils.copyFileFromRawToOthers(FaceRecognitionActivity.this, R.raw.dlib_face_recognition_resnet_model_v1, Constants.getFaceDescriptorModelPath());
                 }
             } else {
-                Log.d(TAG, "error in setting dlib_rec_example directory");
+                Log.d(TAG, "some error occur");
             }
             mFaceRec = new FaceRec(Constants.getDLibDirectoryPath());
             changeProgressDialogMessage(dialog);
@@ -323,7 +323,6 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
             //-----------download current user image in background------------
             if (ContextCompat.checkSelfPermission(FaceRecognitionActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 deleteExistingTrainData();
-
                 ApiClient.resetApiClient();
                 Call<ResponseBody> call = ApiClient.getClient(Util.BASE_URL,authToken).create(EmployeeApi.class).getUserProfilePicture(employeeId);
                 call.enqueue(new Callback<ResponseBody>() {

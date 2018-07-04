@@ -34,7 +34,7 @@ public class AttendanceHistoryAdepter extends RecyclerView.Adapter<AttendanceHis
     @Override
     public void onBindViewHolder(@NonNull AttendanceHistoryViewHolder holder, int position) {
         AttendanceHistory history = attendanceHistoriList.get(position);
-        holder.date.setText("3");
+        holder.date.setText(history.getAttendanceDate());
         holder.intime.setText(history.getIntime());
         holder.outTime.setText(history.getOutTime());
         holder.working.setText(history.getWorkingHour());

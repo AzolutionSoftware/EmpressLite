@@ -1,11 +1,14 @@
 package com.azolution.empresshr.activities;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -31,6 +34,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final int REQUEST_PERMISSION = 10;
     //------------xml instance--------------
     private TextView switchRegisterActivityHintText;
     private EditText employeeIdET,passwordET;
@@ -44,8 +48,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+        requestSelfPermission();
+
+
         progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setMessage("verifying...");
+
+
 
 
         //--------------check ser already logged in or not?-------------
@@ -58,6 +67,33 @@ public class LoginActivity extends AppCompatActivity {
         setSwitchRegisterActivityHintTextColor();
 
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_PERMISSION: {
+                //----------phone state permission result---------------
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[2] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[3] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[4] == PackageManager.PERMISSION_GRANTED) {
+
+
+
+                } else {
+                    requestSelfPermission();
+                }
+
+            }
+            break;
+        }
+    }
+
+    private void requestSelfPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSION);
     }
 
     private void checkUserLoggedInStatus() {
