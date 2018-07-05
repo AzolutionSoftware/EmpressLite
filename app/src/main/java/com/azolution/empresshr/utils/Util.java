@@ -89,7 +89,7 @@ public class Util {
 
     public static String getCurrentYear(){
         Date date = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("YYY", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy", Locale.getDefault());
         return df.format(date);
     }
 
