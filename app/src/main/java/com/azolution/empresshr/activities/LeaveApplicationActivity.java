@@ -48,7 +48,7 @@ import retrofit2.Response;
 public class LeaveApplicationActivity extends AppCompatActivity implements View.OnClickListener{
 
     //----------xml instance------------------
-    private EditText employeeNameText,leaveStartDateText,leaveEndDateText,leaveReasonText;
+    private EditText leaveStartDateText,leaveEndDateText,leaveReasonText;
     private TextView employeeLeaveTypeText;
     private RelativeLayout rootLayout;
     private RecyclerView popUpRecyclerView;
@@ -126,7 +126,6 @@ public class LeaveApplicationActivity extends AppCompatActivity implements View.
     }
 
     private void initializeXMLField() {
-        employeeNameText = findViewById(R.id.leave_application_activity_employeeName);
         leaveStartDateText = findViewById(R.id.leave_application_activity_leaveStartDate);
         leaveEndDateText = findViewById(R.id.leave_application_activity_leaveEndDate);
         leaveReasonText = findViewById(R.id.leave_application_activity_leaveReason);
@@ -164,7 +163,6 @@ public class LeaveApplicationActivity extends AppCompatActivity implements View.
 
 
     public void apply(View view) {
-        String employeeName = employeeNameText.getText().toString();
         String leaveStartDate = leaveStartDateText.getText().toString();
         String leaveEndDate = leaveEndDateText.getText().toString();
         String leaveReason = leaveReasonText.getText().toString();
@@ -173,10 +171,7 @@ public class LeaveApplicationActivity extends AppCompatActivity implements View.
             Toast.makeText(getApplicationContext(),"Please select leave type",Toast.LENGTH_SHORT).show();
             return;
         }
-        if (employeeName.isEmpty()){
-            employeeNameText.setError("require name");
-            return;
-        }
+
         if (leaveStartDate.isEmpty()){
             leaveStartDateText.setError("require start date");
             return;
@@ -198,7 +193,6 @@ public class LeaveApplicationActivity extends AppCompatActivity implements View.
             @Override
             public void onResponse(@NonNull Call<ApiResponseMessage> call, @NonNull Response<ApiResponseMessage> response) {
                 if (response.isSuccessful()){
-                    employeeNameText.setText("");
                     leaveStartDateText.setText("");
                     leaveEndDateText.setText("");
                     leaveReasonText.setText("");

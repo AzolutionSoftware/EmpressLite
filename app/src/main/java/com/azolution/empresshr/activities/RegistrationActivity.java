@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -104,11 +105,16 @@ public class RegistrationActivity extends AppCompatActivity implements GoogleApi
 
 
     //----------when user click register button--------------------------
+    @SuppressLint("HardwareIds")
     public void createNewEmployee(View view) {
         //-----------check  permission granted or not?------------------
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED){
-            deviceIMEINumber = getIMEI(RegistrationActivity.this);
+           if (getIMEI(RegistrationActivity.this).equals("")){
+               deviceIMEINumber= "secureIMEI";
+           }else{
+                deviceIMEINumber = getIMEI(RegistrationActivity.this);
+            }
 
             //-----------check internet connection------------------
             if (Util.haveNetworkConnection(getApplicationContext())){
@@ -315,25 +321,23 @@ public class RegistrationActivity extends AppCompatActivity implements GoogleApi
                             editor.putString(Util.EMPLOYEE_REGISTRATION_STATUS,"Yes");
                             editor.apply();
 
-                            SharedPreferences.Editor editor1 = getSharedPreferences(Util.EMPLOYEE_LOGGEDIN_PREF,Context.MODE_PRIVATE).edit();
-                            editor1.putString(Util.EMPLOYEE_LOGGEDIN_STATUS,"Yes");
-                            editor1.putString(Util.EMPLOYEE_ID,employeeIdET.getText().toString());
-                            editor1.apply();
-
                             progressDialog.dismiss();
                             employeePasswordET.setText("");
                             employeeIdET.setText("");
 
                             profileImage.setImageResource(R.drawable.default_camera);
                             profileImageBitmap = null;
-                            startActivity(new Intent(RegistrationActivity.this,MainActivity.class));
+                            startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
+                            finish();
                             Toast.makeText(getApplicationContext(),"Registration successfully completed",Toast.LENGTH_SHORT).show();
                         }else{
                             progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
+
                         }
                     }else {
                         progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }
 

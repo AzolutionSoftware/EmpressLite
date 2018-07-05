@@ -52,6 +52,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.tzutalin.dlib.Constants;
 import com.tzutalin.dlib.FaceRec;
+import com.tzutalin.dlib.FileUtils;
 import com.tzutalin.dlib.VisionDetRet;
 
 import junit.framework.Assert;
@@ -59,12 +60,8 @@ import junit.framework.Assert;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -229,7 +226,13 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
     }
 
     private void sendAttendanceData(String lat, String lng) {
-        Call<ApiResponseMessage> employeeApiCall =  ApiClient.getClient(Util.BASE_URL,authToken).create(EmployeeApi.class).sendEmployeeAttendanceData(new EmployeeAttendance(employeeId,Util.getIMEI(FaceRecognitionActivity.this),lat,lng,currentImageString,Util.getCurrentDate()));
+        String deviceImei;
+        if (Util.getIMEI(FaceRecognitionActivity.this).equals("")){
+            deviceImei = "secureIMEI";
+        }else {
+            deviceImei = Util.getIMEI(FaceRecognitionActivity.this);
+        }
+        Call<ApiResponseMessage> employeeApiCall =  ApiClient.getClient(Util.BASE_URL,authToken).create(EmployeeApi.class).sendEmployeeAttendanceData(new EmployeeAttendance(employeeId,deviceImei,lat,lng,currentImageString,Util.getCurrentDate()));
         employeeApiCall.enqueue(new Callback<ApiResponseMessage>() {
             @Override
             public void onResponse(@NonNull Call<ApiResponseMessage> call, Response<ApiResponseMessage> response) {

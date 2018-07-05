@@ -35,7 +35,7 @@ import com.azolution.empresshr.model.EmployeeInformation;
 import com.azolution.empresshr.network.ApiClient;
 import com.azolution.empresshr.utils.Util;
 import com.tzutalin.dlib.Constants;
-import com.tzutalin.dlib.FaceRec;
+import com.tzutalin.dlib.FileUtils;
 
 
 import java.io.ByteArrayOutputStream;

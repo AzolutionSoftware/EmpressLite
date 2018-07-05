@@ -3,6 +3,10 @@ package com.azolution.empresshr.model;
 import com.google.gson.annotations.SerializedName;
 
 public class TokenResponse {
+
+    @SerializedName("error_description")
+    public String errorDes;
+
     @SerializedName("access_token")
     private String token;
 
@@ -20,6 +24,7 @@ public class TokenResponse {
 
     @SerializedName(".expires")
     private String expireDate;
+
 
     public String getToken() {
         return token;

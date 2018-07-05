@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.tzutalin.dlib.Constants;
 import com.tzutalin.dlib.FaceRec;
+import com.tzutalin.dlib.FileUtils;
 import com.tzutalin.dlib.VisionDetRet;
 
 import java.io.ByteArrayOutputStream;

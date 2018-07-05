@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.azolution.empresshr.model.EmployeeLocationTrack;
 import com.azolution.empresshr.network.ApiClient;
@@ -45,7 +46,7 @@ public class SendLocationService extends Service implements GoogleApiClient.Conn
     public void onCreate() {
         super.onCreate();
         Timer mTimer = new Timer();
-        mTimer.schedule(timerTask, 6000, 6 * 1000);
+        mTimer.schedule(timerTask, 30000, 30 * 1000);
 
     }
 
@@ -70,9 +71,17 @@ public class SendLocationService extends Service implements GoogleApiClient.Conn
 
                         @Override
                         public void run() {
-                            if (Util.isGPSEnabled(SendLocationService.this.getApplicationContext())) {
-                                buildGoogleApiClient();
+
+                            if (Util.haveNetworkConnection(SendLocationService.this.getApplicationContext())){
+                                if (Util.isGPSEnabled(SendLocationService.this.getApplicationContext())) {
+                                    buildGoogleApiClient();
+                                }else {
+                                    Toast.makeText(SendLocationService.this.getApplicationContext(),"Please enable your gps",Toast.LENGTH_SHORT).show();
+                                }
+                            }else {
+                                Toast.makeText(SendLocationService.this.getApplicationContext(),"Please enable your internet connection",Toast.LENGTH_SHORT).show();
                             }
+
                         }
                     });
                 }
@@ -123,7 +132,12 @@ public class SendLocationService extends Service implements GoogleApiClient.Conn
         if (location != null){
             String latitude = String.valueOf(location.getLatitude());
             String longitude = String.valueOf(location.getLongitude());
-            String imei = Util.getIMEI(SendLocationService.this.getApplicationContext());
+            String imei;
+            if (Util.getIMEI(SendLocationService.this.getApplicationContext()).equals("")){
+                imei = "secureIMEI";
+            }else {
+                imei = Util.getIMEI(SendLocationService.this.getApplicationContext());
+            }
             String id = "";
             String authToken = "";
             String date = Util.getCurrentDate();

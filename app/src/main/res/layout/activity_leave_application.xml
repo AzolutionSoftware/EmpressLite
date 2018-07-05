@@ -96,7 +96,7 @@
 
             </RelativeLayout>
 
-            <android.support.design.widget.TextInputLayout
+           <!-- <android.support.design.widget.TextInputLayout
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -111,7 +111,7 @@
                     android:paddingBottom="16dp"
                     android:paddingTop="5dp"
                     android:textSize="14sp" />
-            </android.support.design.widget.TextInputLayout>
+            </android.support.design.widget.TextInputLayout>-->
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

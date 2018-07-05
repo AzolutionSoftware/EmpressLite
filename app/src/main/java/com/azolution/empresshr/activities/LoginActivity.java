@@ -27,6 +27,11 @@ import com.azolution.empresshr.network.ApiClient;
 import com.azolution.empresshr.network.EmployeeApi;
 import com.azolution.empresshr.utils.Util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -171,13 +176,17 @@ public class LoginActivity extends AppCompatActivity {
                     passwordET.setText("");
                     launchMainActivity();
                     Toast.makeText(getApplicationContext(),"Login successfully done",Toast.LENGTH_SHORT).show();
+                }else {
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(),"Face Identity registration is not found",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<TokenResponse> call, @NonNull Throwable t) {
                 progressDialog.dismiss();
-                Log.v("ERROR",t.getMessage());
+                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+
             }
         });
     }
