@@ -11,6 +11,27 @@ public class LeaveType {
     @Expose
     private String leaveTypeName;
 
+    @SerializedName("Totalleave")
+    private int totaLeave;
+
+    @SerializedName("LeaveEnjoied")
+    private int leaveEnjoyed;
+
+    @SerializedName("OpeningLeaveBalance")
+    private int openingLeaveBalance;
+
+    public int getTotaLeave() {
+        return totaLeave;
+    }
+
+    public int getLeaveEnjoyed() {
+        return leaveEnjoyed;
+    }
+
+    public int getOpeningLeaveBalance() {
+        return openingLeaveBalance;
+    }
+
     public Integer getLeaveTypeId() {
         return leaveTypeId;
     }

@@ -267,7 +267,7 @@ public class LeaveApplicationActivity extends AppCompatActivity implements View.
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                rootLayout.setBackgroundColor(Color.parseColor("#ffffff"));
+                rootLayout.setBackgroundResource(R.drawable.bg_image);
             }
         });
 

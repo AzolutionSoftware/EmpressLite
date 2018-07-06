@@ -18,10 +18,20 @@ import com.azolution.empresshr.model.AttendanceHistory;
 import com.azolution.empresshr.network.ApiClient;
 import com.azolution.empresshr.network.EmployeeApi;
 import com.azolution.empresshr.utils.Util;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +42,12 @@ public class AttendenceHistoryActivity extends AppCompatActivity {
     //----------xml instance---------------
     private RecyclerView recyclerView;
     private TextView monthSelectorText;
+
+    PieChart pieChart ;
+    ArrayList<PieEntry> entries ;
+    ArrayList<String> PieEntryLabels ;
+    PieDataSet pieDataSet ;
+    PieData pieData ;
 
     //---------class insatnce----------
     private SharedPreferences userInfoPref;
@@ -83,8 +99,11 @@ public class AttendenceHistoryActivity extends AppCompatActivity {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                               getAttendanceHistory(String.valueOf(year),String.valueOf(monthOfYear+1));
-                                monthSelectorText.setText(String.valueOf(monthOfYear+1)+"/"+String.valueOf(year));
+
+                                getAttendanceHistory(String.valueOf(year),String.valueOf(monthOfYear+1));
+                                monthSelectorText.setText(dayOfMonth+"/"+(monthOfYear+1)+"/"+year);
+
+
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -93,6 +112,45 @@ public class AttendenceHistoryActivity extends AppCompatActivity {
             }
         });
 
+        pieChart = findViewById(R.id.attendance_activity_piecart);
+        entries = new ArrayList<>();
+        PieEntryLabels = new ArrayList<>();
+
+        AddValuesToPIEENTRY();
+
+        AddValuesToPieEntryLabels();
+
+        pieDataSet = new PieDataSet(entries, "");
+        pieData = new PieData (pieDataSet);
+        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        pieChart.setData(pieData);
+
+        pieChart.animateY(3000);
+
+
+
+    }
+
+    public void AddValuesToPIEENTRY(){
+
+        entries.add(new PieEntry(2f, 0));
+        entries.add(new PieEntry(4f, 1));
+        entries.add(new PieEntry(6f, 2));
+        entries.add(new PieEntry(8f, 3));
+        entries.add(new PieEntry(7f, 4));
+        entries.add(new PieEntry(3f, 5));
+
+    }
+
+    public void AddValuesToPieEntryLabels(){
+
+        PieEntryLabels.add("January");
+        PieEntryLabels.add("February");
+        PieEntryLabels.add("March");
+        PieEntryLabels.add("April");
+        PieEntryLabels.add("May");
+        PieEntryLabels.add("June");
 
     }
 

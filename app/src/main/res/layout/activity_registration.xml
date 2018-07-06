@@ -1,4 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/bg_image"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:id="@+id/login_actionbar_ly"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize">
+
+        <ImageView
+            android:src="@drawable/empress_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/login_view"
+        android:layout_marginTop="2dp"
+        android:layout_below="@+id/login_actionbar_ly"
+        android:background="#135308"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+
+   <ScrollView
+       android:id="@+id/register_activity_scrollview"
+       android:layout_margin="15dp"
+       android:layout_below="@+id/login_view"
+       android:background="@drawable/login_activity_bg"
+       android:layout_above="@+id/login_developer_dummy_text"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <LinearLayout
+           android:layout_marginTop="10dp"
+           android:layout_marginBottom="10dp"
+           android:orientation="vertical"
+           android:gravity="center"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <LinearLayout
+               android:orientation="horizontal"
+               android:layout_width="250dp"
+               android:layout_height="wrap_content">
+
+               <ImageView
+                   android:src="@drawable/people"
+                   android:layout_width="60dp"
+                   android:layout_height="40dp" />
+               <TextView
+                   android:text="SIGN UP"
+                   android:textStyle="bold"
+                   android:textColorHighlight="@color/white"
+                   android:layout_marginStart="10dp"
+                   android:textColor="@color/black"
+                   android:textSize="26sp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+           </LinearLayout>
+
+           <TextView
+               android:layout_gravity="center_horizontal"
+               android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+               android:text="@string/register_activity_upload_profile_image"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+
+           <de.hdodenhof.circleimageview.CircleImageView
+               android:id="@+id/register_activity_profile_image"
+               android:onClick="addProfileImage"
+               android:layout_gravity="center_horizontal"
+               android:src="@drawable/default_camera"
+               android:layout_width="140dp"
+               android:layout_height="120dp" />
+
+           <EditText
+               android:id="@+id/register_activity_employee_id"
+               android:inputType="text"
+               android:layout_marginTop="40dp"
+               android:hint="employee id"
+               android:paddingStart="10dp"
+               android:background="@drawable/login_et_bg"
+               android:layout_width="250dp"
+               android:layout_height="40dp" />
+
+           <EditText
+               android:id="@+id/register_activity_employee_account_password"
+               android:layout_marginTop="20dp"
+               android:hint="password"
+               android:paddingStart="10dp"
+               android:inputType="textPassword"
+               android:background="@drawable/login_et_bg"
+               android:layout_width="250dp"
+               android:layout_height="40dp" />
+
+           <Button
+               android:layout_marginTop="20dp"
+               android:background="#2b2a2a"
+               android:text="REGISTER"
+               android:onClick="createNewEmployee"
+               android:textColor="@color/white"
+               android:layout_width="250dp"
+               android:layout_height="40dp" />
+
+           <TextView
+               android:id="@+id/register_activity_switchLogin_activity_text"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="16dp"
+               android:layout_marginTop="40dp"
+               android:textColor="@color/black"
+               android:layout_marginEnd="8dp"
+               android:layout_marginStart="8dp"
+               android:onClick="gotoLoginActivity" />
+
+
+       </LinearLayout>
+
+   </ScrollView>
+
+
+    <TextView
+        android:id="@+id/login_developer_dummy_text"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:text="Copyright ©Azolution | Powered by: Empress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>
+<!--
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -154,4 +293,4 @@
 
 
 
-</android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>-->

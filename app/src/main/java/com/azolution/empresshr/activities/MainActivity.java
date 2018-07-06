@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.main_activity_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Employee Dashboard");
+            getSupportActionBar().setTitle("Workplace");
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -185,8 +186,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_logout) {
             showLogOutDialog();
-        } else if (id == R.id.nav_attendance_history) {
-            startActivity(new Intent(this, AttendenceHistoryActivity.class));
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -257,6 +256,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dialog.show();
     }
 
+    public void attendanceHistory(View view) {
+        startActivity(new Intent(this, AttendenceHistoryActivity.class));
+    }
+
     //---------leave application------------
     public void gotoLeaveApplicationActivity(View view) {
         startActivity(new Intent(MainActivity.this, LeaveApplicationGraphActivity.class));
@@ -275,6 +278,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
+    public void loadEmpressPage(View view) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse("http://www.empresshr.com/"));
+        startActivity(i);
+    }
+
 
     @SuppressLint("StaticFieldLeak")
     private class initRecAsync extends AsyncTask<Void, Void, Void> {

@@ -77,9 +77,8 @@ public class OthersUserAttendanceIdInputDialogFragment extends DialogFragment {
             @Override
             public void onResponse(@NonNull Call<EmployeeInformation> call, @NonNull Response<EmployeeInformation> response) {
                 if (response.isSuccessful()){
-                    if (response.body().getMessage() != null){
-                        Toast.makeText(getActivity(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
-                    }else {
+
+                    if (response.body().getEmployeeName() != null){
                         dismiss();
                         String employeeName = response.body().getEmployeeName();
                         String employeeId = response.body().getEmployeeId();
@@ -96,8 +95,10 @@ public class OthersUserAttendanceIdInputDialogFragment extends DialogFragment {
                             Toast.makeText(getActivity(),"please enable your gps",Toast.LENGTH_SHORT).show();
 
                         }
-
+                    }else {
+                        Toast.makeText(getActivity(),"employee not found",Toast.LENGTH_SHORT).show();
                     }
+
                 }
             }
             @Override

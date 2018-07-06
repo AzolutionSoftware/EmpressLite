@@ -15,9 +15,6 @@ public class EmployeeInformation implements Serializable{
     @SerializedName("IMEI")
     private String imei;
 
-    @SerializedName("Message")
-    private String Message;
-
     public String getEmployeeName() {
         return employeeName;
     }
@@ -30,7 +27,5 @@ public class EmployeeInformation implements Serializable{
         return imei;
     }
 
-    public String getMessage() {
-        return Message;
-    }
+
 }
