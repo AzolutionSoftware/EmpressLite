@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,7 +35,6 @@ import com.azolution.empresshr.network.ApiClient;
 import com.azolution.empresshr.network.EmployeeApi;
 import com.azolution.empresshr.utils.Util;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -132,9 +130,9 @@ public class LeaveApplicationActivity extends AppCompatActivity implements View.
         employeeLeaveTypeText = findViewById(R.id.leave_application_activity_leaveTypeText);
         rootLayout = findViewById(R.id.leave_application_activity_rootLayout);
         idText = findViewById(R.id.leave_application_activity_profileId);
-        nameText = findViewById(R.id.leave_application_activity_profileName);
-        currentDateText = findViewById(R.id.leave_application_activity_currentDate);
-        profileImageView = findViewById(R.id.leave_application_activity_profileImage);
+        nameText = findViewById(R.id.attendance_adjustment_profileName);
+        currentDateText = findViewById(R.id.attendance_adjustment_activity_currentDate);
+        profileImageView = findViewById(R.id.attendance_adjustment_activity_profileImage);
     }
 
     private void showDatePicker(final int id){

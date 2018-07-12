@@ -1,6 +1,8 @@
 package com.azolution.empresshr.network;
 
+import com.azolution.empresshr.model.AttendanceAdjustment;
 import com.azolution.empresshr.model.AttendanceHistory;
+import com.azolution.empresshr.model.EmployeeAttendanceGraph;
 import com.azolution.empresshr.model.EmployeeProfileInformation;
 import com.azolution.empresshr.model.LeaveApplication;
 import com.azolution.empresshr.model.LeaveApplicationHistory;
@@ -72,5 +74,11 @@ public interface EmployeeApi {
 
     @GET("/api/Attendance/GetRoutePlanByEmployee")
     Call<List<RoutePlan>> getRoutePlan(@Query("empId") String empId, @Query("date") String date);
+
+    @GET("/api/Attendance/GetAttendanceGraph")
+    Call<List<EmployeeAttendanceGraph>> getAttendanceGraph(@Query("empId") String empId, @Query("year") int year, @Query("month") int month);
+
+    @POST("/api/Attendance/AdjustmentRequest")
+    Call<Void> requestForAttendanceAdjust(@Body AttendanceAdjustment adjustment);
 
 }

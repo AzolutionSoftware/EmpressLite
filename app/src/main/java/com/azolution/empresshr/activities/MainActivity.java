@@ -269,6 +269,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(new Intent(MainActivity.this, EmployeeInformationActivity.class));
     }
 
+    public void attendanceAdjustment(View view) {
+        startActivity(new Intent(MainActivity.this,AttendanceAdjustmentActivity.class));
+    }
+
+
+
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -284,6 +291,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         i.setData(Uri.parse("http://www.empresshr.com/"));
         startActivity(i);
     }
+
+
 
 
     @SuppressLint("StaticFieldLeak")
