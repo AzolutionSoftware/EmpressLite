@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.media.ExifInterface;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -57,6 +58,7 @@ import com.tzutalin.dlib.VisionDetRet;
 
 import junit.framework.Assert;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -232,7 +234,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
         }else {
             deviceImei = Util.getIMEI(FaceRecognitionActivity.this);
         }
-        Call<ApiResponseMessage> employeeApiCall =  ApiClient.getClient(Util.BASE_URL,authToken).create(EmployeeApi.class).sendEmployeeAttendanceData(new EmployeeAttendance(employeeId,deviceImei,lat,lng,currentImageString,Util.getCurrentDate()));
+        Call<ApiResponseMessage> employeeApiCall =  ApiClient.getClient(Util.BASE_URL,authToken).create(EmployeeApi.class).sendEmployeeAttendanceData(new EmployeeAttendance(employeeId,deviceImei,lat,lng,currentImageString,Util.getCurrentDateForServer()));
         employeeApiCall.enqueue(new Callback<ApiResponseMessage>() {
             @Override
             public void onResponse(@NonNull Call<ApiResponseMessage> call, Response<ApiResponseMessage> response) {
@@ -321,6 +323,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
         super.onResume();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             mCameraView.start();
+            mCameraView.setFacing(CameraView.FACING_FRONT);
         }
         if (Util.haveNetworkConnection(FaceRecognitionActivity.this) && profileImageString.equals("") ){
             //-----------download current user image in background------------
@@ -444,9 +447,9 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
                 return true;
             case R.id.switch_camera:
                 if (mCameraView != null) {
-                    int facing = mCameraView.getFacing();
+                   /* int facing = mCameraView.getFacing();
                     mCameraView.setFacing(facing == CameraView.FACING_FRONT ?
-                            CameraView.FACING_BACK : CameraView.FACING_FRONT);
+                            CameraView.FACING_BACK : CameraView.FACING_FRONT);*/
                 }
                 return true;
         }
@@ -571,15 +574,56 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
             Log.d(TAG, "onCameraClosed");
         }
 
-        @Override
+     /*   @Override
         public void onPictureTaken(CameraView cameraView, final byte[] data) {
             Log.d(TAG, "onPictureTaken " + data.length);
-            Toast.makeText(cameraView.getContext(), R.string.picture_taken, Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(cameraView.getContext(), R.string.picture_taken, Toast.LENGTH_SHORT).show();
             Bitmap bp = BitmapFactory.decodeByteArray(data, 0, data.length);
-            currentImageString = Util.convertBase64Image(bp);
-            new recognizeAsync().execute(bp);
+            Bitmap roatateBitmap = rotateBitmap(bp,270);
+            currentImageString = Util.convertBase64Image(roatateBitmap);
+            new recognizeAsync().execute(roatateBitmap);
+        }*/
+
+        @Override
+        public void onPictureTaken(CameraView cameraView, byte[] data) {
+            // Find out if the picture needs rotating by looking at its Exif data
+            Bitmap bp = BitmapFactory.decodeByteArray(data, 0, data.length);
+            ExifInterface exifInterface = null;
+            try {
+                exifInterface = new ExifInterface(new ByteArrayInputStream(data));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+            int rotationDegrees = 0;
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_NORMAL:
+                    currentImageString = Util.convertBase64Image(bp);
+                    new recognizeAsync().execute(bp);
+                    break;
+
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotationDegrees = 90;
+                    currentImageString = Util.convertBase64Image(rotateBitmap(bp,rotationDegrees));
+                    new recognizeAsync().execute(rotateBitmap(bp,rotationDegrees));
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotationDegrees = 180;
+                    currentImageString = Util.convertBase64Image(rotateBitmap(bp,rotationDegrees));
+                    new recognizeAsync().execute(rotateBitmap(bp,rotationDegrees));
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotationDegrees = 270;
+                    currentImageString = Util.convertBase64Image(rotateBitmap(bp,rotationDegrees));
+                    new recognizeAsync().execute(rotateBitmap(bp,rotationDegrees));
+                    break;
+            }
+            // Create and rotate the bitmap by rotationDegrees
         }
 
     };
+
+    private Bitmap rotateBitmap(Bitmap source, int angle) {
+        Matrix matrix = new Matrix(); matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true); }
 }

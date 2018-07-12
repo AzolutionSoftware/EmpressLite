@@ -337,7 +337,6 @@ public class RegistrationActivity extends AppCompatActivity implements GoogleApi
                         }
                     }else {
                         progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }
 

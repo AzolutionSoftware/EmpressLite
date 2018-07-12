@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.azolution.empresshr.R;
 import com.azolution.empresshr.adepter.AttendanceHistoryAdepter;
@@ -21,7 +22,6 @@ import com.azolution.empresshr.utils.Util;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.DateFormat;
@@ -43,18 +43,13 @@ public class AttendenceHistoryActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TextView monthSelectorText;
 
-    PieChart pieChart ;
-    ArrayList<PieEntry> entries ;
-    ArrayList<String> PieEntryLabels ;
-    PieDataSet pieDataSet ;
-    PieData pieData ;
+
 
     //---------class insatnce----------
     private SharedPreferences userInfoPref;
     private String authToken,employeeId,employeeName;
     private ArrayList<AttendanceHistory> attendanceHistorieList = new ArrayList<>();
     private AttendanceHistoryAdepter adepter;
-
     private int mYear, mMonth, mDay;
 
 
@@ -112,47 +107,11 @@ public class AttendenceHistoryActivity extends AppCompatActivity {
             }
         });
 
-        pieChart = findViewById(R.id.attendance_activity_piecart);
-        entries = new ArrayList<>();
-        PieEntryLabels = new ArrayList<>();
-
-        AddValuesToPIEENTRY();
-
-        AddValuesToPieEntryLabels();
-
-        pieDataSet = new PieDataSet(entries, "");
-        pieData = new PieData (pieDataSet);
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-
-        pieChart.setData(pieData);
-
-        pieChart.animateY(3000);
 
 
 
     }
 
-    public void AddValuesToPIEENTRY(){
-
-        entries.add(new PieEntry(2f, 0));
-        entries.add(new PieEntry(4f, 1));
-        entries.add(new PieEntry(6f, 2));
-        entries.add(new PieEntry(8f, 3));
-        entries.add(new PieEntry(7f, 4));
-        entries.add(new PieEntry(3f, 5));
-
-    }
-
-    public void AddValuesToPieEntryLabels(){
-
-        PieEntryLabels.add("January");
-        PieEntryLabels.add("February");
-        PieEntryLabels.add("March");
-        PieEntryLabels.add("April");
-        PieEntryLabels.add("May");
-        PieEntryLabels.add("June");
-
-    }
 
     private void getAttendanceHistory(String year, String month){
         ApiClient.resetApiClient();
@@ -161,15 +120,21 @@ public class AttendenceHistoryActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<List<AttendanceHistory>> call, @NonNull Response<List<AttendanceHistory>> response) {
                 if (response.isSuccessful()){
-                    attendanceHistorieList.clear();
-                    attendanceHistorieList.addAll(response.body());
-                    adepter.notifyDataSetChanged();
-
+                    if (response.body() != null){
+                        attendanceHistorieList.clear();
+                        attendanceHistorieList.addAll(response.body());
+                        adepter.notifyDataSetChanged();
+                    }else {
+                        Toast.makeText(getApplicationContext(),"Failed to fetch data from server",Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(getApplicationContext(),"Something went wrong. Please try again",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<List<AttendanceHistory>> call, @NonNull Throwable t) {
+                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
 
             }
         });

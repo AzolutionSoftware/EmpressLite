@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent service = new Intent(getApplicationContext(), SendLocationService.class);
-        startService(service);
+        //Intent service = new Intent(getApplicationContext(), SendLocationService.class);
+        //startService(service);
         initializeXMLField();
        new initRecAsync().execute();
 

@@ -77,7 +77,19 @@ public class Util {
     //-----------get current date-------------
     public static String getCurrentDate(){
         Date date = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy hh:mm aa", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+        return df.format(date);
+    }
+
+    public static String getCurrentDateForServer(){
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.getDefault());
+        return df.format(date);
+    }
+
+    public static String getAttendanceDateForServer(){
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.getDefault());
         return df.format(date);
     }
 
