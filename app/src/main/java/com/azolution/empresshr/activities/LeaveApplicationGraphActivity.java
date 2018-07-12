@@ -19,6 +19,8 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
+import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +58,7 @@ public class LeaveApplicationGraphActivity extends AppCompatActivity {
         barChart.setScaleEnabled(false);
         barChart.setDrawBarShadow(false);
         barChart.setDrawGridBackground(false);
+        barChart.setDrawValueAboveBar(true);
 
 
 
@@ -70,43 +73,52 @@ public class LeaveApplicationGraphActivity extends AppCompatActivity {
                         ArrayList<String> labels = new ArrayList<String>();
                         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
 
+                        ArrayList<BarEntry> bargroup1 = new ArrayList<>();
 
+
+                        ArrayList<BarEntry> bargroup2 = new ArrayList<>();
+
+                        ArrayList<BarEntry> bargroup3 = new ArrayList<>();
 
 
                         for (int i = 0 ; i<response.body().size() ; i++){
                             labels.add(response.body().get(i).getLeaveTypeName());
 
-                            ArrayList<BarEntry> bargroup1 = new ArrayList<>();
-                            bargroup1.add(new BarEntry(response.body().get(i).getOpeningLeaveBalance()+1, 0));
+                            bargroup1.add(new BarEntry(response.body().get(i).getOpeningLeaveBalance(), 0));
 
-                            ArrayList<BarEntry> bargroup2 = new ArrayList<>();
-                            bargroup2.add(new BarEntry(response.body().get(i).getLeaveEnjoyed()+10, 1));
+                            bargroup2.add(new BarEntry(response.body().get(i).getLeaveEnjoyed(), 1));
 
-                            ArrayList<BarEntry> bargroup3 = new ArrayList<>();
-                            bargroup3.add(new BarEntry(response.body().get(i).getTotaLeave()+10, 2));
+                            bargroup3.add(new BarEntry(response.body().get(i).getClosingLeaveBalance(), 2));
 
-                            BarDataSet barDataSet1 = new BarDataSet(bargroup1, "Opening");
-                            barDataSet1.setColor(Color.RED);
-                            dataSets.add(barDataSet1);
-                            // creating dataset for Bar Group 2
-                            BarDataSet barDataSet2 = new BarDataSet(bargroup2, "Availed");
-                            barDataSet2.setColor(Color.GREEN);
 
-                            // creating dataset for Bar Group 3
-                            BarDataSet barDataSet3 = new BarDataSet(bargroup3, "Closing");
-                            barDataSet3.setColor(Color.BLUE);
-
-                            dataSets.add(barDataSet1);
-                            dataSets.add(barDataSet2);
-                            dataSets.add(barDataSet3);
 
                         }
+                        BarDataSet barDataSet1 = new BarDataSet(bargroup1, "Opening");
+                        barDataSet1.setColor(Color.RED);
+
+
+                        // creating dataset for Bar Group 2
+                        BarDataSet barDataSet2 = new BarDataSet(bargroup2, "Enjoyed");
+                        barDataSet2.setColor(Color.GREEN);
+
+                        // creating dataset for Bar Group 3
+                        BarDataSet barDataSet3 = new BarDataSet(bargroup3, "Closing");
+                        barDataSet3.setColor(Color.BLUE);
+
+
+                        dataSets.add(barDataSet1);
+                        dataSets.add(barDataSet2);
+                        dataSets.add(barDataSet3);
 
 
 
 
                         BarData data = new BarData(labels,dataSets);
+                        //BarData data = new BarData(barDataSet1,barDataSet2,barDataSet3);
+                        data.setValueFormatter(new LargeValueFormatter());
+
                         barChart.setData(data);
+
                         barChart.animateX(4000);
                         barChart.animateY(4000);
 
@@ -115,27 +127,21 @@ public class LeaveApplicationGraphActivity extends AppCompatActivity {
                         bargroup1.add(new BarEntry(8f, 0));
                         bargroup1.add(new BarEntry(2f, 1));
                         bargroup1.add(new BarEntry(5f, 2));
-                        bargroup1.add(new BarEntry(20f, 3));
-                        bargroup1.add(new BarEntry(15f, 4));
-                        bargroup1.add(new BarEntry(19f, 5));
+
 
                         // create BarEntry for Bar Group 2
                         ArrayList<BarEntry> bargroup2 = new ArrayList<>();
                         bargroup2.add(new BarEntry(6f, 0));
                         bargroup2.add(new BarEntry(10f, 1));
                         bargroup2.add(new BarEntry(5f, 2));
-                        bargroup2.add(new BarEntry(25f, 3));
-                        bargroup2.add(new BarEntry(4f, 4));
-                        bargroup2.add(new BarEntry(17f, 5));
+
 
                         // create BarEntry for Bar Group 3
                         ArrayList<BarEntry> bargroup3 = new ArrayList<>();
                         bargroup3.add(new BarEntry(4f, 0));
                         bargroup3.add(new BarEntry(7f, 1));
                         bargroup3.add(new BarEntry(15f, 2));
-                        bargroup3.add(new BarEntry(20f, 3));
-                        bargroup3.add(new BarEntry(8f, 4));
-                        bargroup3.add(new BarEntry(12f, 5));
+
 
                         // creating dataset for Bar Group1
                         BarDataSet barDataSet1 = new BarDataSet(bargroup1, "Bar Group 1");
@@ -154,9 +160,7 @@ public class LeaveApplicationGraphActivity extends AppCompatActivity {
                         labels.add("2016");
                         labels.add("2015");
                         labels.add("2014");
-                        labels.add("2013");
-                        labels.add("2012");
-                        labels.add("2011");
+
 
                         ArrayList<IBarDataSet> dataSets = new ArrayList<>();  // combined all dataset into an arraylist
                         dataSets.add(barDataSet1);

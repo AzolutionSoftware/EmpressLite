@@ -20,6 +20,9 @@ public class LeaveType {
     @SerializedName("OpeningLeaveBalance")
     private int openingLeaveBalance;
 
+    @SerializedName("ClosingLeaveBalance")
+    private int closingLeaveBalance;
+
     public int getTotaLeave() {
         return totaLeave;
     }
@@ -46,5 +49,8 @@ public class LeaveType {
 
     public void setLeaveTypeName(String leaveTypeName) {
         this.leaveTypeName = leaveTypeName;
+    }
+    public int getClosingLeaveBalance() {
+        return closingLeaveBalance;
     }
 }
