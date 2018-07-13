@@ -37,6 +37,8 @@ import retrofit2.Response;
 public class OthersUserAttendanceIdInputDialogFragment extends DialogFragment {
 
     private  EditText userIdText;
+    private Button cancelButton;
+
     public OthersUserAttendanceIdInputDialogFragment() {
     }
 
@@ -47,6 +49,8 @@ public class OthersUserAttendanceIdInputDialogFragment extends DialogFragment {
         assert getActivity()!=null;
 
         userIdText = view.findViewById(R.id.other_user_attendance_dialog_employeeId);
+        cancelButton = view.findViewById(R.id.other_user_attendance_dialog_cancelButton);
+
         Button verifyButton = view.findViewById(R.id.other_user_attendance_dialog_verifyButton);
 
         verifyButton.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +63,13 @@ public class OthersUserAttendanceIdInputDialogFragment extends DialogFragment {
                 }else {
                     userIdText.setError("enter an employee id");
                 }
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
             }
         });
 

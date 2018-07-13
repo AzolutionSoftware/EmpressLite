@@ -28,7 +28,7 @@
 
     <LinearLayout
         android:layout_margin="15dp"
-        android:layout_above="@+id/login_developer_dummy_text"
+        android:layout_above="@+id/copy_right_dummy_text"
         android:orientation="vertical"
         android:gravity="center"
         android:background="@drawable/login_activity_bg"

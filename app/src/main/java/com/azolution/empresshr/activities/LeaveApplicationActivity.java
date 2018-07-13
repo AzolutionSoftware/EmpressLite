@@ -81,7 +81,7 @@ public class LeaveApplicationActivity extends AppCompatActivity implements View.
         Toolbar toolbar = findViewById(R.id.leave_application_activity_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null){
-            getSupportActionBar().setTitle("Leave Application");
+            getSupportActionBar().setTitle("Leave Balance");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         initializeXMLField();

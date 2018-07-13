@@ -24,7 +24,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:text="Information"
+                    android:text="Employee Information"
                     android:layout_centerVertical="true"
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     android:layout_width="wrap_content"
@@ -46,8 +46,9 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:layout_gravity="center"
                 android:orientation="vertical"
-                android:padding="16dp"
+                android:layout_margin="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -95,77 +96,245 @@
                     android:layout_height="1dp"
                     android:background="#AEAEAE"/>
 
-                <TextView
-                    android:id="@+id/employee_information_activity_companyName"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/employee_information_activity_branchName"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/employee_information_activity_departmentName"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:text="Company"
+                        android:layout_weight="1"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/employee_information_activity_divisionName"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/employee_information_activity_companyName"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/employee_information_activity_PSMRegionName"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/employee_information_activity_PSMManager"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/employee_information_activity_salesManager"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/employee_information_activity_PSOlocationName"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="Branch"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/employee_information_activity_sectionName"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/employee_information_activity_branchName"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/employee_information_activity_facilityName"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/employee_information_activity_employementDate"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/employee_information_activity_employeeDateOfBirth"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="Division"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/employee_information_activity_divisionName"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:text="Department"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/employee_information_activity_departmentName"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="Region"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/employee_information_activity_PSMRegionName"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="PSO Location"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/employee_information_activity_PSOlocationName"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content" />
+
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="1"
+                        android:text="RSM"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/employee_information_activity_RSMManager"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="SM"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/employee_information_activity_salesManager"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="DoJ"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/employee_information_activity_dateOfJoining"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="DoB"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/employee_information_activity_dob"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+
+
 
             </LinearLayout>
 
