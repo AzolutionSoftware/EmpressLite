@@ -1,12 +1,15 @@
 package com.azolution.empresshr.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.azolution.empresshr.R;
 import com.azolution.empresshr.adepter.LeaveHistoryAdepter;
@@ -78,5 +81,11 @@ public class LeaveApplicationHistoryActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void loadEmpressPage(View view) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse("http://www.empresshr.com/"));
+        startActivity(i);
     }
 }

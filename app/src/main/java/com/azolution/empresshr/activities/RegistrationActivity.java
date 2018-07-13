@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -362,5 +363,11 @@ public class RegistrationActivity extends AppCompatActivity implements GoogleApi
     public void gotoLoginActivity(View view) {
         startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
         finish();
+    }
+
+    public void loadEmpressPage(View view) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse("http://www.empresshr.com/"));
+        startActivity(i);
     }
 }

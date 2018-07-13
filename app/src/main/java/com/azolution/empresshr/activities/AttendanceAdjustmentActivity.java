@@ -1,7 +1,9 @@
 package com.azolution.empresshr.activities;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -195,5 +197,11 @@ public class AttendanceAdjustmentActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void loadEmpressPage(View view) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse("http://www.empresshr.com/"));
+        startActivity(i);
     }
 }
