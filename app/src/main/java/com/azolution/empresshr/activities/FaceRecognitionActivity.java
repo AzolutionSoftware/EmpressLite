@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -254,6 +256,13 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
             }
         });
     }
+
+    public void loadEmpressPage(View view) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse("http://www.empresshr.com/"));
+        startActivity(i);
+    }
+
     @SuppressLint("StaticFieldLeak")
     private class initRecAsync extends AsyncTask<Void, Void, Void> {
         ProgressDialog dialog = new ProgressDialog(FaceRecognitionActivity.this);

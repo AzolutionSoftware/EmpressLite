@@ -3,6 +3,7 @@ package com.azolution.empresshr.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -191,5 +192,11 @@ public class LeaveApplicationGraphActivity extends AppCompatActivity {
 
     public void applyLeaveApplication(View view) {
         startActivity(new Intent(LeaveApplicationGraphActivity.this,LeaveApplicationActivity.class));
+    }
+
+    public void loadEmpressPage(View view) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse("http://www.empresshr.com/"));
+        startActivity(i);
     }
 }
