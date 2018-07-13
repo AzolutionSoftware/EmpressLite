@@ -2,8 +2,10 @@ package com.azolution.empresshr.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -64,8 +66,12 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -157,7 +163,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
         profileImage = findViewById(R.id.face_recognition_activity_userProfileImage);
         extras = getIntent().getExtras();
         if (extras != null){
-            employeeName = extras.getString("employeeName");
+            employeeName = extras.getString("employeeName").trim();
             employeeId = extras.getString("employeeId");
             profileImageString = extras.getString("employeeProfileImage");
             employeeNameText.setText(employeeName);
@@ -180,7 +186,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
         Runnable changeMessage = new Runnable() {
             @Override
             public void run() {
-                pd.setMessage("Recognizing...");
+                pd.setMessage("Initializing...");
             }
         };
         runOnUiThread(changeMessage);
@@ -229,20 +235,46 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
         googleApiClient.disconnect();
     }
 
-    private void sendAttendanceData(String lat, String lng) {
+    private void sendAttendanceData(String lat, String lng){
         String deviceImei;
         if (Util.getIMEI(FaceRecognitionActivity.this).equals("")){
             deviceImei = "secureIMEI";
         }else {
             deviceImei = Util.getIMEI(FaceRecognitionActivity.this);
         }
-        Call<ApiResponseMessage> employeeApiCall =  ApiClient.getClient(Util.BASE_URL,authToken).create(EmployeeApi.class).sendEmployeeAttendanceData(new EmployeeAttendance(employeeId,deviceImei,lat,lng,currentImageString,Util.getCurrentDateForServer()));
+        final String capturedTime = Util.getCurrentDateForServer();
+        SimpleDateFormat preDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.getDefault());
+        Date predDate = null;
+        try {
+            predDate = preDateFormat.parse(Util.getCurrentDateForServer());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat formatSimpleTime  = new SimpleDateFormat("dd/MM/yyyy hh:mm aa", Locale.getDefault());
+        final String formatTime = formatSimpleTime.format(predDate);
+
+
+
+        Call<ApiResponseMessage> employeeApiCall =  ApiClient.getClient(Util.BASE_URL,authToken).create(EmployeeApi.class).sendEmployeeAttendanceData(new EmployeeAttendance(employeeId,deviceImei,lat,lng,currentImageString,capturedTime));
         employeeApiCall.enqueue(new Callback<ApiResponseMessage>() {
             @Override
             public void onResponse(@NonNull Call<ApiResponseMessage> call, Response<ApiResponseMessage> response) {
                 if (response.isSuccessful()){
                     if (response.body().getMessage().equals("Success")){
-                        Toast.makeText(getApplicationContext(),"Attendance Successful",Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(FaceRecognitionActivity.this)
+                            .setCancelable(true)
+                            .setMessage("Your attendance has captured at "+formatTime)
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        Dialog dialog = builder.create();
+                        dialog.show();
+
+
+
 
                     }else {
                         Toast.makeText(getApplicationContext(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
@@ -261,6 +293,10 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse("http://www.empresshr.com/"));
         startActivity(i);
+    }
+
+    public void back(View view) {
+        super.onBackPressed();
     }
 
     @SuppressLint("StaticFieldLeak")
