@@ -53,12 +53,14 @@
 
     <TextView
         android:id="@+id/attendance_adjustment_activity_currentDate"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="16dp"
-        android:textColor="@color/white"
-        android:layout_below="@+id/attendance_adjustment_activity_profileImage"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/attendance_adjustment_activity_profileImage"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/white" />
 
 
 
@@ -159,7 +161,16 @@
 
             </android.support.design.widget.TextInputLayout>
 
+
+            <TextView
+                android:id="@+id/leave_application_activity_totalDays"
+                android:layout_marginTop="5dp"
+                android:text="Total: 0 days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
             <android.support.design.widget.TextInputLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -167,7 +178,6 @@
                     android:id="@+id/leave_application_activity_leaveReason"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:hint="@string/leaveReasonText"
                     android:inputType="text"
                     android:paddingBottom="16dp"

@@ -19,7 +19,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Face Attendance"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <ImageView
+            android:visibility="gone"
             android:src="@drawable/empress_logo"
             android:layout_width="match_parent"
             android:layout_height="50dp" />
