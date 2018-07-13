@@ -17,6 +17,7 @@ import com.azolution.empresshr.network.ApiClient;
 import com.azolution.empresshr.network.EmployeeApi;
 import com.azolution.empresshr.utils.Util;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -32,7 +33,7 @@ import retrofit2.Response;
 
 public class LeaveApplicationGraphActivity extends AppCompatActivity {
 
-    private BarChart barChart;
+    private HorizontalBarChart barChart;
     private SharedPreferences userPref;
     private String employeeId,authToken,profileName,profileImageString;
 
@@ -49,17 +50,19 @@ public class LeaveApplicationGraphActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.leave_application_graph_activity_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null){
-            getSupportActionBar().setTitle("Leave Application Graph");
+            getSupportActionBar().setTitle("Leave Balance");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        barChart = findViewById(R.id.leave_application_graph_activity_lineGraph);
-        barChart.setDescription(null);
+        barChart = (HorizontalBarChart)findViewById(R.id.leave_application_graph_activity_lineGraph);
+        barChart.setDescription("");
         barChart.setPinchZoom(false);
         barChart.setScaleEnabled(false);
         barChart.setDrawBarShadow(false);
         barChart.setDrawGridBackground(false);
         barChart.setDrawValueAboveBar(true);
+        barChart.setHorizontalScrollBarEnabled(true);
+
 
 
 
@@ -85,31 +88,29 @@ public class LeaveApplicationGraphActivity extends AppCompatActivity {
                         for (int i = 0 ; i<response.body().size() ; i++){
                             labels.add(response.body().get(i).getLeaveTypeName());
 
-                            bargroup1.add(new BarEntry(response.body().get(i).getOpeningLeaveBalance(), 0));
-
-                            bargroup2.add(new BarEntry(response.body().get(i).getLeaveEnjoyed(), 1));
-
-                            bargroup3.add(new BarEntry(response.body().get(i).getClosingLeaveBalance(), 2));
-
-
-
+                            bargroup1.add(new BarEntry(response.body().get(i).getOpeningLeaveBalance(), i));
+                            bargroup2.add(new BarEntry(response.body().get(i).getLeaveEnjoyed(), i));
+                            bargroup3.add(new BarEntry(response.body().get(i).getClosingLeaveBalance(), i));
                         }
+
+
                         BarDataSet barDataSet1 = new BarDataSet(bargroup1, "Opening");
-                        barDataSet1.setColor(Color.RED);
+                        barDataSet1.setColor(Color.GREEN);
 
 
                         // creating dataset for Bar Group 2
                         BarDataSet barDataSet2 = new BarDataSet(bargroup2, "Enjoyed");
-                        barDataSet2.setColor(Color.GREEN);
+                        barDataSet2.setColor(Color.RED);
 
                         // creating dataset for Bar Group 3
                         BarDataSet barDataSet3 = new BarDataSet(bargroup3, "Closing");
                         barDataSet3.setColor(Color.BLUE);
 
-
-                        dataSets.add(barDataSet1);
-                        dataSets.add(barDataSet2);
                         dataSets.add(barDataSet3);
+                        dataSets.add(barDataSet2);
+                        dataSets.add(barDataSet1);
+
+
 
 
 
@@ -124,44 +125,44 @@ public class LeaveApplicationGraphActivity extends AppCompatActivity {
                         barChart.animateY(4000);
 
                         // create BarEntry for Bar Group 1
-                      /*  ArrayList<BarEntry> bargroup1 = new ArrayList<>();
-                        bargroup1.add(new BarEntry(8f, 0));
-                        bargroup1.add(new BarEntry(2f, 1));
-                        bargroup1.add(new BarEntry(5f, 2));
+                       /* ArrayList<BarEntry> bargroup1 = new ArrayList<>();
+                        bargroup1.add(new BarEntry(10, 0));
+                        bargroup1.add(new BarEntry(5, 1));
+                        bargroup1.add(new BarEntry(5, 2));
 
 
                         // create BarEntry for Bar Group 2
                         ArrayList<BarEntry> bargroup2 = new ArrayList<>();
-                        bargroup2.add(new BarEntry(6f, 0));
-                        bargroup2.add(new BarEntry(10f, 1));
-                        bargroup2.add(new BarEntry(5f, 2));
+                        bargroup2.add(new BarEntry(12, 0));
+                        bargroup2.add(new BarEntry(2, 1));
+                        bargroup2.add(new BarEntry(10, 2));
 
 
                         // create BarEntry for Bar Group 3
                         ArrayList<BarEntry> bargroup3 = new ArrayList<>();
-                        bargroup3.add(new BarEntry(4f, 0));
-                        bargroup3.add(new BarEntry(7f, 1));
-                        bargroup3.add(new BarEntry(15f, 2));
+                        bargroup3.add(new BarEntry(6, 0));
+                        bargroup3.add(new BarEntry(0, 1));
+                        bargroup3.add(new BarEntry(6, 2));
 
 
                         // creating dataset for Bar Group1
-                        BarDataSet barDataSet1 = new BarDataSet(bargroup1, "Bar Group 1");
+                        BarDataSet barDataSet1 = new BarDataSet(bargroup1, "Opening");
                         //barDataSet1.setColor(Color.rgb(0, 155, 0));
                         barDataSet1.setColor(Color.RED);
 
                         // creating dataset for Bar Group 2
-                        BarDataSet barDataSet2 = new BarDataSet(bargroup2, "Bar Group 2");
+                        BarDataSet barDataSet2 = new BarDataSet(bargroup2, "Enjoyed");
                         barDataSet2.setColor(Color.GREEN);
 
                         // creating dataset for Bar Group 3
-                        BarDataSet barDataSet3 = new BarDataSet(bargroup3, "Bar Group 3");
+                        BarDataSet barDataSet3 = new BarDataSet(bargroup3, "Closing");
                         barDataSet3.setColor(Color.BLUE);
 
                         ArrayList<String> labels = new ArrayList<String>();
-                        labels.add("2016");
-                        labels.add("2015");
-                        labels.add("2014");
-
+                        labels.add("Casual");
+                        labels.add("Medical");
+                        labels.add("Earn Leave");
+                        labels.add("Meternity");
 
                         ArrayList<IBarDataSet> dataSets = new ArrayList<>();  // combined all dataset into an arraylist
                         dataSets.add(barDataSet1);
@@ -172,6 +173,7 @@ public class LeaveApplicationGraphActivity extends AppCompatActivity {
                         barChart.setData(data);
                         barChart.animateX(4000);
                         barChart.animateY(4000);*/
+
 
                     }else {
                         Toast.makeText(getApplicationContext(),"Failed to fetch data from server",Toast.LENGTH_SHORT).show();
