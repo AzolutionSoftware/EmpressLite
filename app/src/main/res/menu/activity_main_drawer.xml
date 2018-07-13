@@ -6,6 +6,36 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/action_attendance"
+            android:title="@string/employee_attendance_text"
+            android:icon="@drawable/ic_attendance"/>
+
+        <item
+            android:id="@+id/action_attendance_history"
+            android:title="Attendance History"
+            android:icon="@drawable/ic_approvals"/>
+
+        <item
+            android:id="@+id/action_attendance_adjustment"
+            android:title="Attendance Adjustment"
+            android:icon="@drawable/ic_dashboard"/>
+
+        <item
+            android:id="@+id/action_leave_application"
+            android:title="Leave Application"
+            android:icon="@drawable/ic_leave"/>
+
+        <item
+            android:id="@+id/action_employee"
+            android:title="Employee Profile"
+            android:icon="@drawable/ic_employee"/>
+
+        <item
+            android:id="@+id/action_rootPlan"
+            android:title="Route Plan"
+            android:icon="@drawable/ic_root_plan"/>
+
+        <item
             android:icon="@drawable/ic_logout"
             android:id="@+id/nav_logout"
             android:title="Logout" />

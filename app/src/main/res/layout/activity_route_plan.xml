@@ -44,6 +44,7 @@
             android:id="@+id/route_plan_activity_dateText"
             android:layout_marginTop="15dp"
             android:text="Select date"
+            android:textColor="@color/white"
             android:gravity="center"
             android:textSize="16sp"
             android:layout_width="match_parent"
@@ -56,6 +57,16 @@
             android:background="@drawable/login_activity_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/route_plan_activity_routePlanStatus"
+                android:layout_centerVertical="true"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:text="No route plan available"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/route_plan_activity_recyclerView"

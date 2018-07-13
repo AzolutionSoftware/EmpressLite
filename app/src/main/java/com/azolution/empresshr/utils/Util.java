@@ -77,7 +77,7 @@ public class Util {
     //-----------get current date-------------
     public static String getCurrentDate(){
         Date date = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         return df.format(date);
     }
 

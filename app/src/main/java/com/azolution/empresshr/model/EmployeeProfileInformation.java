@@ -44,11 +44,11 @@ public class EmployeeProfileInformation {
     @SerializedName("FacilityName")
     private String facilityName;
 
-   /* @SerializedName("EmploymentDate")
-    private Date employmentDate;*/
+    @SerializedName("EmploymentDate")
+    private String employmentDate;
 
- /*   @SerializedName("DateOfBirth")
-    private Date dateOfBirth;*/
+    @SerializedName("DateOfBirth")
+    private String dateOfBirth;
 
     public String getEmployeeId() {
         return employeeId;
@@ -102,11 +102,11 @@ public class EmployeeProfileInformation {
         return facilityName;
     }
 
-   /* public Date getEmploymentDate() {
+    public String getEmploymentDate() {
         return employmentDate;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
-    }*/
+    }
 }

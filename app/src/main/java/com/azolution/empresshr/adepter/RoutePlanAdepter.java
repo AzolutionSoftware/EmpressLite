@@ -33,9 +33,9 @@ public class RoutePlanAdepter extends RecyclerView.Adapter<RoutePlanAdepter.Rout
     @Override
     public void onBindViewHolder(@NonNull RoutePlanViewHolder holder, int position) {
         RoutePlan plan = routePlanList.get(position);
-        holder.outletName.setText("Outlet Name : "+plan.getOutletName());
+        holder.outletName.setText("Outlet: "+plan.getOutletName());
         holder.geoLOcation.setText("Geo Location : "+plan.getGeoLocation());
-        holder.visitStartTime.setText("VisitStart Time : 10AM");
+        holder.visitStartTime.setText("Visit Time: "+plan.getVisitDateTime());
     }
 
     @Override

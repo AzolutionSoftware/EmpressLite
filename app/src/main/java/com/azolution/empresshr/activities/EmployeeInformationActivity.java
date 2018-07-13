@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.azolution.empresshr.R;
 import com.azolution.empresshr.model.EmployeeProfileInformation;
@@ -77,13 +78,16 @@ public class EmployeeInformationActivity extends AppCompatActivity {
         departmentName = findViewById(R.id.employee_information_activity_departmentName);
         devisionName = findViewById(R.id.employee_information_activity_divisionName);
         RSMRegionName = findViewById(R.id.employee_information_activity_PSMRegionName);
-        RSMManager = findViewById(R.id.employee_information_activity_PSMManager);
+        RSMManager = findViewById(R.id.employee_information_activity_RSMManager);
         salesManager = findViewById(R.id.employee_information_activity_salesManager);
+        employmentDate = findViewById(R.id.employee_information_activity_dateOfJoining);
+        dateOfBirth = findViewById(R.id.employee_information_activity_dob);
         PSOLocationName = findViewById(R.id.employee_information_activity_PSOlocationName);
+       /* PSOLocationName = findViewById(R.id.employee_information_activity_PSOlocationName);
         sectionName = findViewById(R.id.employee_information_activity_sectionName);
         facilityName = findViewById(R.id.employee_information_activity_facilityName);
         employmentDate = findViewById(R.id.employee_information_activity_employeeDateOfBirth);
-        dateOfBirth = findViewById(R.id.employee_information_activity_employementDate);
+        dateOfBirth = findViewById(R.id.employee_information_activity_employementDate);*/
     }
 
     private void getEmployeeProfileInformation() {
@@ -93,27 +97,33 @@ public class EmployeeInformationActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<EmployeeProfileInformation> call, @NonNull Response<EmployeeProfileInformation> response) {
               if (response.isSuccessful()){
-                  employeeDesText.setText(response.body().getDesignation());
-                  companyName.setText("Company Name : "+response.body().getCompanyName());
-                  branchName.setText("Branch Name : "+response.body().getBranchName());
-                  departmentName.setText("Department Name : "+response.body().getDepartmentName());
-                  devisionName.setText("Division Name : "+response.body().getDevisionName());
-                  RSMRegionName.setText("RSMRegion Name : "+response.body().getRSMRegionName());
-                  RSMManager.setText("RSMManager : "+response.body().getRSMManager());
-                  salesManager.setText("SalesManager : "+response.body().getSalesManager());
-                  PSOLocationName.setText("PSOLocation Name : "+response.body().getPSOLocationName());
-                  sectionName.setText("Section Name : "+response.body().getSectionName());
-                  facilityName.setText("Facility Name : "+response.body().getFacilityName());
-                  //employmentDate.setText(String.valueOf(response.body().getEmploymentDate().getTime()));
-                  //dateOfBirth.setText(String.valueOf(response.body().getDateOfBirth().getTime()));
+                if (response.body() != null){
+                    employeeDesText.setText(response.body().getDesignation());
+                    companyName.setText(": "+response.body().getCompanyName());
+                    branchName.setText(": "+response.body().getBranchName());
+                    departmentName.setText(": "+response.body().getDepartmentName());
+                    devisionName.setText(": "+response.body().getDevisionName());
+                    RSMRegionName.setText(": "+response.body().getRSMRegionName());
+                    RSMManager.setText(": "+response.body().getRSMManager());
+                    salesManager.setText(": "+response.body().getSalesManager());
+                    PSOLocationName.setText(": "+response.body().getPSOLocationName());
+                    //sectionName.setText("Section Name : "+response.body().getSectionName());
+                    //facilityName.setText("Facility Name : "+response.body().getFacilityName());
+                    employmentDate.setText(": "+response.body().getEmploymentDate());
+                    dateOfBirth.setText(": "+response.body().getDateOfBirth());
+                }else {
+                    Toast.makeText(getApplicationContext(),"Failed to fetch data from server",Toast.LENGTH_SHORT).show();
+                }
+
               }else {
-                  Log.v("MYACTIVITYERROR",response.errorBody().toString());
+                  Toast.makeText(getApplicationContext(),"Something went wrong. Please try again",Toast.LENGTH_SHORT).show();
               }
             }
 
             @Override
             public void onFailure(@NonNull Call<EmployeeProfileInformation> call, @NonNull Throwable t) {
-                Log.v("MYACTIVITYERROR",t.getMessage());
+                Toast.makeText(getApplicationContext(),t.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
     }

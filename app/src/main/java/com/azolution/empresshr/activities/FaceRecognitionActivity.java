@@ -180,7 +180,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements Activi
         Runnable changeMessage = new Runnable() {
             @Override
             public void run() {
-                pd.setMessage("training face...");
+                pd.setMessage("Recognizing...");
             }
         };
         runOnUiThread(changeMessage);

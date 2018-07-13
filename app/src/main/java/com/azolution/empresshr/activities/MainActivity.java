@@ -98,11 +98,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
 
         View hView = navigationView.getHeaderView(0);
         navProfileImage = hView.findViewById(R.id.nav_user_profile_image);
         navUserName = hView.findViewById(R.id.nav_user_profile_name);
         navUserId = hView.findViewById(R.id.nav_user_profile_id);
+
+        navProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,EmployeeInformationActivity.class));
+            }
+        });
 
     }
 
@@ -186,7 +194,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_logout) {
             showLogOutDialog();
+        }else if (id == R.id.action_attendance){
+            showEmployeeAttendanceType();
+        }else if (id == R.id.action_attendance_history){
+            startActivity(new Intent(this, AttendenceHistoryActivity.class));
+        }else if (id == R.id.action_attendance_adjustment){
+            startActivity(new Intent(MainActivity.this,AttendanceAdjustmentActivity.class));
+        }else if (id == R.id.action_leave_application){
+            startActivity(new Intent(MainActivity.this, LeaveApplicationGraphActivity.class));
+        }else if (id == R.id.action_employee){
+            startActivity(new Intent(MainActivity.this, EmployeeInformationActivity.class));
+        }else if (id == R.id.action_rootPlan){
+            startActivity(new Intent(MainActivity.this,RoutePlanActivity.class));
         }
+
+
+
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -222,8 +246,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * ------------employee attendance-------------
      **/
     public void employeeAttendance(View view) {
+        showEmployeeAttendanceType();
+    }
+
+    private void showEmployeeAttendanceType(){
         AlertDialog.Builder attendanceDialog = new AlertDialog.Builder(MainActivity.this)
-                .setMessage("Please Select Attendance option")
+                .setMessage("Please select Attendance option")
                 .setPositiveButton("Others", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

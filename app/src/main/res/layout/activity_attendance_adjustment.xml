@@ -139,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:focusable="false"
-                    android:hint="Attendance adjustment date"
+                    android:hint="Attendance date"
                     android:inputType="date"
                     android:paddingBottom="16dp"
                     android:paddingTop="16dp"
