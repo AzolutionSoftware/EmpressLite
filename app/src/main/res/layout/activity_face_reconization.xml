@@ -13,6 +13,13 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:src="@mipmap/ic_back"
+            android:layout_centerVertical="true"
+            android:onClick="back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
             android:src="@drawable/empress_logo"
             android:layout_width="match_parent"
             android:layout_height="50dp" />
@@ -29,7 +36,7 @@
 
         <TextView
             android:id="@+id/face_recognition_activity_userName"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
