@@ -36,8 +36,12 @@ import com.azolution.empresshr.network.ApiClient;
 import com.azolution.empresshr.network.EmployeeApi;
 import com.azolution.empresshr.utils.Util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -48,7 +52,7 @@ public class LeaveApplicationActivity extends AppCompatActivity implements View.
 
     //----------xml instance------------------
     private EditText leaveStartDateText,leaveEndDateText,leaveReasonText;
-    private TextView employeeLeaveTypeText;
+    private TextView employeeLeaveTypeText,totalDays;
     private RelativeLayout rootLayout;
     private RecyclerView popUpRecyclerView;
 
@@ -81,7 +85,7 @@ public class LeaveApplicationActivity extends AppCompatActivity implements View.
         Toolbar toolbar = findViewById(R.id.leave_application_activity_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null){
-            getSupportActionBar().setTitle("Leave Balance");
+            getSupportActionBar().setTitle("Leave Application");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         initializeXMLField();
@@ -134,6 +138,7 @@ public class LeaveApplicationActivity extends AppCompatActivity implements View.
         nameText = findViewById(R.id.attendance_adjustment_profileName);
         currentDateText = findViewById(R.id.attendance_adjustment_activity_currentDate);
         profileImageView = findViewById(R.id.attendance_adjustment_activity_profileImage);
+        totalDays = findViewById(R.id.leave_application_activity_totalDays);
     }
 
     private void showDatePicker(final int id){
@@ -150,9 +155,17 @@ public class LeaveApplicationActivity extends AppCompatActivity implements View.
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         if (id == R.id.leave_application_activity_leaveStartDate){
-                            leaveStartDateText.setText((monthOfYear +1) + "/"+ dayOfMonth +"/" +year);
+                            leaveStartDateText.setText(dayOfMonth +"/"+(monthOfYear +1) +"/" +year);
+                            leaveEndDateText.setText(dayOfMonth +"/"+(monthOfYear +1) +"/" +year);
+
+                            int count = getCountOfDays(leaveStartDateText.getText().toString(),leaveEndDateText.getText().toString()) + 1;
+                            totalDays.setText("Total: "+String.valueOf(count)+" days");
+
+
                         }else if (id == R.id.leave_application_activity_leaveEndDate){
-                            leaveEndDateText.setText((monthOfYear +1) + "/"+ dayOfMonth +"/" +year);
+                            leaveEndDateText.setText(dayOfMonth +"/"+(monthOfYear +1) +"/" +year);
+                            int  count = getCountOfDays(leaveStartDateText.getText().toString(),leaveEndDateText.getText().toString()) + 1;
+                            totalDays.setText("Total: "+String.valueOf(count)+" days");
                         }
                     }
                 }, mYear, mMonth, mDay);
@@ -187,15 +200,34 @@ public class LeaveApplicationActivity extends AppCompatActivity implements View.
         }
 
         ApiClient.resetApiClient();
-        Call<ApiResponseMessage> leaveApplicationCall = ApiClient.getClient(Util.BASE_URL,authToken).create(EmployeeApi.class).sendLeaveApplication(new LeaveApplication(employeeId,leaveTypeId,leaveStartDate,leaveEndDate,leaveReason));
+
+        SimpleDateFormat preDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        Date predStartDate = null;
+        Date predEndDate = null;
+        try {
+            predStartDate = preDateFormat.parse(leaveStartDate);
+            predEndDate = preDateFormat.parse(leaveEndDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat formatSimpleTime  = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+        String formatStartDate = formatSimpleTime.format(predStartDate);
+        String formatEndtDate = formatSimpleTime.format(predEndDate);
+
+
+
+        Call<ApiResponseMessage> leaveApplicationCall = ApiClient.getClient(Util.BASE_URL,authToken).create(EmployeeApi.class).sendLeaveApplication(new LeaveApplication(employeeId,leaveTypeId,formatStartDate,formatEndtDate,leaveReason));
         leaveApplicationCall.enqueue(new Callback<ApiResponseMessage>() {
             @Override
             public void onResponse(@NonNull Call<ApiResponseMessage> call, @NonNull Response<ApiResponseMessage> response) {
                 if (response.isSuccessful()){
-                    leaveStartDateText.setText("");
+                   /* leaveStartDateText.setText("");
                     leaveEndDateText.setText("");
                     leaveReasonText.setText("");
-                    employeeLeaveTypeText.setText("Select Leave Type");
+                    employeeLeaveTypeText.setText("Select Leave Type");*/
+                    startActivity(new Intent(LeaveApplicationActivity.this,LeaveApplicationGraphActivity.class));
+                    finish();
                     Toast.makeText(getApplicationContext(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
 
                 }else {
@@ -212,13 +244,74 @@ public class LeaveApplicationActivity extends AppCompatActivity implements View.
 
     }
 
+    public int getCountOfDays(String createdDateString, String expireDateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        Date createdConvertedDate = null, expireCovertedDate = null, todayWithZeroTime = null;
+        try {
+            createdConvertedDate = dateFormat.parse(createdDateString);
+            expireCovertedDate = dateFormat.parse(expireDateString);
+
+            Date today = new Date();
+
+            todayWithZeroTime = dateFormat.parse(dateFormat.format(today));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        int cYear = 0, cMonth = 0, cDay = 0;
+
+        if (createdConvertedDate.after(todayWithZeroTime)) {
+            Calendar cCal = Calendar.getInstance();
+            cCal.setTime(createdConvertedDate);
+            cYear = cCal.get(Calendar.YEAR);
+            cMonth = cCal.get(Calendar.MONTH);
+            cDay = cCal.get(Calendar.DAY_OF_MONTH);
+
+        } else {
+            Calendar cCal = Calendar.getInstance();
+            cCal.setTime(todayWithZeroTime);
+            cYear = cCal.get(Calendar.YEAR);
+            cMonth = cCal.get(Calendar.MONTH);
+            cDay = cCal.get(Calendar.DAY_OF_MONTH);
+        }
+
+
+    /*Calendar todayCal = Calendar.getInstance();
+    int todayYear = todayCal.get(Calendar.YEAR);
+    int today = todayCal.get(Calendar.MONTH);
+    int todayDay = todayCal.get(Calendar.DAY_OF_MONTH);
+    */
+
+        Calendar eCal = Calendar.getInstance();
+        eCal.setTime(expireCovertedDate);
+
+        int eYear = eCal.get(Calendar.YEAR);
+        int eMonth = eCal.get(Calendar.MONTH);
+        int eDay = eCal.get(Calendar.DAY_OF_MONTH);
+
+        Calendar date1 = Calendar.getInstance();
+        Calendar date2 = Calendar.getInstance();
+
+        date1.clear();
+        date1.set(cYear, cMonth, cDay);
+        date2.clear();
+        date2.set(eYear, eMonth, eDay);
+
+        long diff = date2.getTimeInMillis() - date1.getTimeInMillis();
+
+        float dayCount = (float) diff / (24 * 60 * 60 * 1000);
+
+        return (int) dayCount;
+    }
+
     public void showLeaveType(View view) {
         showLeaveTypePopupOptionMenu();
     }
 
     private void showLeaveTypePopupOptionMenu() {
         @SuppressLint("InflateParams") final View popupView = getLayoutInflater().inflate(R.layout.leave_type_popup, null);
-        final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT , ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setFocusable(true);
 
         popUpRecyclerView = popupView.findViewById(R.id.leave_type_popup_recyclerView);
@@ -261,7 +354,7 @@ public class LeaveApplicationActivity extends AppCompatActivity implements View.
         rootLayout.setBackgroundColor(Color.parseColor("#CC000000"));
         employeeLeaveTypeText.getLocationOnScreen(location);
         // Using location, the PopupWindow will be displayed right under anchorVie+
-        popupWindow.showAtLocation(employeeLeaveTypeText, Gravity.NO_GRAVITY, location[0] + 130, location[1] + 60);
+        popupWindow.showAtLocation(employeeLeaveTypeText, Gravity.NO_GRAVITY, location[0]+15, location[1] + 60);
 
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
