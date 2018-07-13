@@ -35,7 +35,7 @@ import retrofit2.Response;
 
 public class RoutePlanActivity extends AppCompatActivity {
 
-    private TextView selectDateText;
+    private TextView selectDateText,rootPlanStatus;
     private RecyclerView recyclerView;
 
     private ArrayList<RoutePlan> routePlanList = new ArrayList<>();
@@ -62,6 +62,7 @@ public class RoutePlanActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.route_plan_activity_recyclerView);
         selectDateText = findViewById(R.id.route_plan_activity_dateText);
+        rootPlanStatus = findViewById(R.id.route_plan_activity_routePlanStatus);
         selectDateText.setText(Util.getCurrentDate());
 
 
@@ -111,6 +112,11 @@ public class RoutePlanActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<List<RoutePlan>> call, @NonNull Response<List<RoutePlan>> response) {
                 if (response.isSuccessful()){
                     if (response.body() != null){
+                        if (response.body().size()==0){
+                            rootPlanStatus.setVisibility(View.VISIBLE);
+                        }else {
+                            rootPlanStatus.setVisibility(View.GONE);
+                        }
                         routePlanList.clear();
                         routePlanList.addAll(response.body());
                         adepter.notifyDataSetChanged();
