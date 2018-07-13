@@ -43,9 +43,14 @@ public class LeaveHistoryAdepter extends RecyclerView.Adapter<LeaveHistoryAdepte
         }
 
         LeaveApplicationHistory history = historiesList.get(position);
-        holder.nameText.setText("Name : "+employeeName);
-        holder.typeText.setText("Leave Type : "+history.getLeaveTypeName());
-        holder.statusText.setText("Status : "+history.getStatus());
+        holder.nameText.setText("Name: "+employeeName);
+        holder.typeText.setText("Leave Type: "+history.getLeaveTypeName());
+        holder.statusText.setText("Status: "+history.getStatus());
+        holder.appliedDateText.setText("Applied date: "+history.getAppaliedDate());
+        holder.approveDateText.setText("Approve date: "+history.getApproveDate());
+        holder.dateText.setText(history.getStartDate() +" to "+history.getEndDate() +" ("+history.getTotalDays()+")");
+
+
 
     }
 

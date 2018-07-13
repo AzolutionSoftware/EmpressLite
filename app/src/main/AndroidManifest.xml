@@ -32,16 +32,23 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activities.SplashScreenActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.RegistrationActivity" />
-        <activity android:name=".activities.LoginActivity" />
         <activity
+            android:screenOrientation="portrait"
+            android:name=".activities.RegistrationActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".activities.LoginActivity" />
+        <activity
+            android:screenOrientation="portrait"
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme" />
@@ -49,40 +56,55 @@
             android:name=".activities.FaceRecognitionActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".activities.AddPersonActivity"
             android:label="@string/title_activity_add_person"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.LeaveApplicationActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".activities.LeaveApplicationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.LeaveApplicationGraphActivity" />
         </activity>
-        <activity android:name=".activities.LeaveApplicationGraphActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".activities.LeaveApplicationGraphActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.LeaveApplicationHistoryActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".activities.LeaveApplicationHistoryActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.LeaveApplicationActivity" />
         </activity>
-        <activity android:name=".activities.EmployeeInformationActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".activities.EmployeeInformationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.AttendenceHistoryActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".activities.AttendenceHistoryActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.RoutePlanActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".activities.RoutePlanActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.AttendanceAdjustmentActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".activities.AttendanceAdjustmentActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
