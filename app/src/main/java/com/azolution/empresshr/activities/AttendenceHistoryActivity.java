@@ -50,7 +50,7 @@ public class AttendenceHistoryActivity extends AppCompatActivity {
 
     //----------xml instance---------------
     private RecyclerView recyclerView;
-    private TextView monthSelectorText;
+    private TextView monthSelectorText,attendanceHistoryStatus,pichatStatus;
     private PieChart pieChart;
 
 
@@ -97,7 +97,13 @@ public class AttendenceHistoryActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.attendance_history_activity_recyclerView);
         monthSelectorText = findViewById(R.id.attendance_history_monthSelectorText);
+        attendanceHistoryStatus = findViewById(R.id.attendance_activity_status);
+        pichatStatus = findViewById(R.id.attendance_activity_piecartStatus);
         pieChart = findViewById(R.id.attendance_activity_piecart);
+        pieChart.setNoDataText("no data available");
+
+
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adepter = new AttendanceHistoryAdepter(attendanceHistorieList,getApplicationContext());
@@ -166,6 +172,15 @@ public class AttendenceHistoryActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<List<AttendanceHistory>> call, @NonNull Response<List<AttendanceHistory>> response) {
                 if (response.isSuccessful()){
                     if (response.body() != null){
+                        if (response.body().size() == 0){
+                            attendanceHistoryStatus.setVisibility(View.VISIBLE);
+                            pichatStatus.setVisibility(View.VISIBLE);
+                            pieChart.setVisibility(View.GONE);
+                        }else {
+                            attendanceHistoryStatus.setVisibility(View.GONE);
+                            pichatStatus.setVisibility(View.GONE);
+                            pieChart.setVisibility(View.VISIBLE);
+                        }
                         attendanceHistorieList.clear();
                         attendanceHistorieList.addAll(response.body());
                         adepter.notifyDataSetChanged();
@@ -194,6 +209,11 @@ public class AttendenceHistoryActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<List<EmployeeAttendanceGraph>> call, @NonNull Response<List<EmployeeAttendanceGraph>> response) {
                 if (response.isSuccessful()){
                     if (response.body() != null){
+                        if (response.body().size() == 0){
+                            pichatStatus.setVisibility(View.VISIBLE);
+                        }else {
+                            pichatStatus.setVisibility(View.GONE);
+                        }
                         pieChart.setUsePercentValues(true);
                        /* ArrayList<Entry> yvalues = new ArrayList<>();
                         yvalues.add(new Entry(response.body().getNoOfPresent(), 0));
@@ -203,6 +223,7 @@ public class AttendenceHistoryActivity extends AppCompatActivity {
                         yvalues.add(new Entry(response.body().getNoOfDayOff(), 4));
                         yvalues.add(new Entry(response.body().getNoOfTraining(), 5));*/
 
+                       pieChart.setDescription("");
                         ArrayList<Entry> yvalues = new ArrayList<>();
                         ArrayList<String> xVals = new ArrayList<String>();
                        for (int i = 0 ; i<response.body().size() ; i++){
@@ -238,15 +259,18 @@ public class AttendenceHistoryActivity extends AppCompatActivity {
 
                     }else {
                         Toast.makeText(getApplicationContext(),"Failed to fetch data from server",Toast.LENGTH_SHORT).show();
+                        pichatStatus.setVisibility(View.VISIBLE);
                     }
                 }else {
                     Toast.makeText(getApplicationContext(),"Something went wrong. Please try again",Toast.LENGTH_SHORT).show();
+                    pichatStatus.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<List<EmployeeAttendanceGraph>> call, @NonNull Throwable t) {
                 Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+                pichatStatus.setVisibility(View.VISIBLE);
             }
         });
 

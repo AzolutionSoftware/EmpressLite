@@ -45,15 +45,36 @@
            android:layout_marginTop="10dp"
            android:textSize="18sp"
            android:gravity="center"
+           android:textColor="@color/white"
            android:text="Select Month and Year"
            android:layout_width="match_parent"
            android:layout_height="wrap_content" />
 
-
-       <com.github.mikephil.charting.charts.PieChart
-           android:id="@+id/attendance_activity_piecart"
+       <RelativeLayout
+           android:padding="10dp"
+           android:layout_marginStart="5dp"
+           android:layout_marginEnd="5dp"
+           android:background="@drawable/login_activity_bg"
            android:layout_width="match_parent"
-           android:layout_height="200dp"/>
+           android:layout_height="250dp">
+
+           <TextView
+               android:id="@+id/attendance_activity_piecartStatus"
+               android:visibility="gone"
+               android:layout_centerVertical="true"
+               android:layout_centerHorizontal="true"
+               android:text="No data available"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+
+           <com.github.mikephil.charting.charts.PieChart
+               android:id="@+id/attendance_activity_piecart"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"/>
+
+       </RelativeLayout>
+
+
 
 
 
@@ -96,7 +117,7 @@
                   android:layout_height="wrap_content" />
 
               <TextView
-                  android:text="Working"
+                  android:text="Status"
                   android:layout_weight="1"
                   android:gravity="center"
                   android:textSize="16sp"
@@ -105,11 +126,26 @@
 
           </LinearLayout>
 
-          <android.support.v7.widget.RecyclerView
-              android:id="@+id/attendance_history_activity_recyclerView"
-              android:layout_marginTop="10dp"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"/>
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+             <TextView
+                 android:id="@+id/attendance_activity_status"
+                 android:layout_centerHorizontal="true"
+                 android:layout_centerVertical="true"
+                 android:text="No History available"
+                 android:visibility="gone"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" />
+
+             <android.support.v7.widget.RecyclerView
+                 android:id="@+id/attendance_history_activity_recyclerView"
+                 android:layout_marginTop="10dp"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"/>
+
+         </RelativeLayout>
 
 
       </LinearLayout>
@@ -117,6 +153,7 @@
    </LinearLayout>
 
     <LinearLayout
+        android:layout_marginBottom="5dp"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:gravity="center"
